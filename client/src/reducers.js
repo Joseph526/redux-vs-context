@@ -1,4 +1,5 @@
 import Food from "./foods";
+import { SEARCH_INPUT_CHANGED } from "./actions";
 
 const initialState = {
     food: Food,
@@ -8,7 +9,7 @@ const initialState = {
 function reducer(state = initialState, action) {
     // Switch between the action type
     switch (action.type) {
-        case "SEARCH_INPUT_CHANGED":
+        case SEARCH_INPUT_CHANGED:
             const { searchTerm } = action.payload;
             return {
                 ...state,
