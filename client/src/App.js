@@ -1,21 +1,52 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import actions from './actions';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    const { food, searchTerm, searchTermChanged } = this.props;
+
+    this.food = food;
+    this.searchTerm = searchTerm;
+    this.searchTermChanged = searchTermChanged;
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <div className="search">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search"
+            value={this.searchTerm}
+            onChange={e => this.searchTermChanged(e.target.value)}
+          />
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Origin</th>
+              <th>Continent</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.food.map(theFood => (
+              <tr key={theFood.name}>
+                <td>{theFood.name}</td>
+                <td>{theFood.origin}</td>
+                <td>{theFood.continent}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }
 }
 
-export default App;
+export default connect(store => store, actions)(App);
