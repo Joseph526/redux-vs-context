@@ -1,38 +1,30 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import auth0Client from './Auth/Auth';
+import Callback from './Callback/Callback';
+import HomePage from './HomePage/HomePage';
 import './App.css';
 
-function App({ food, searchTerm, searchTermChanged }) {
+function App() {
   return (
-    <div>
-      <div className="search">
-        <input
-          type="text"
-          name="search"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={e => searchTermChanged(e.target.value)}
-        />
+    <Router>
+      <div className="App">
+        <Route exact path="/callback" render={(routeProps) => (
+          <Callback
+            {...routeProps}
+            auth={auth0Client}
+          />)
+        }/>
+        <Route exact path="/" render={(routeProps) => (
+          <HomePage
+            {...routeProps}
+            auth={auth0Client}
+            history={routeProps.history}
+          />)
+        }/>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Origin</th>
-            <th>Continent</th>
-          </tr>
-        </thead>
-        <tbody>
-          {food.map(theFood => (
-            <tr key={theFood.name}>
-              <td>{theFood.name}</td>
-              <td>{theFood.origin}</td>
-              <td>{theFood.continent}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+    </Router>
+  )
 }
 
-export default (App);
+export default App;
