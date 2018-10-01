@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 
 function Callback(props) {
     props.auth.handleAuthentication().then(() => {
-        props.history.push("/");
+        props.history.replace("/");
     });
 
     return (
