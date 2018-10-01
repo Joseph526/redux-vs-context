@@ -1,6 +1,6 @@
 import auth0 from "auth0-js";
 
-export default class Auth {
+class Auth {
     constructor() {
         this.auth0 = new auth0.WebAuth({
             domain: "joseph526.auth0.com",
@@ -46,8 +46,9 @@ export default class Auth {
     }
 
     logout() {
-        // Clear id token and expiration
+        // Clear id token, profile and expiration
         this.idToken = null;
+        this.profile = null;
         this.expiresAt = null;
     }
 
@@ -58,3 +59,7 @@ export default class Auth {
         this.expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
     }
 }
+
+const auth0Client = new Auth();
+
+export default auth0Client;
