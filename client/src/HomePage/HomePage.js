@@ -1,11 +1,11 @@
 import React from "react";
 
 function HomePage(props) {
-    const { authenticated } = props;
-
+    const authenticated = props.auth.isAuthenticated();
+    
     const logout = () => {
         props.auth.logout();
-        props.history.push("/");
+        props.history.replace("/");
     };
 
     if (authenticated) {
