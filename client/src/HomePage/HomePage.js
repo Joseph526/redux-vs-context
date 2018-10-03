@@ -1,4 +1,6 @@
 import React from "react";
+import Consumer from "../consumer";
+import FoodsContainer from "../FoodsContainer/FoodsContainer";
 
 function HomePage(props) {
     const authenticated = props.auth.isAuthenticated();
@@ -14,6 +16,10 @@ function HomePage(props) {
             <div>
                 <h2>Welcome back, {name}</h2>
                 <button onClick={logout}>Log Out</button>
+                <br /><br />
+                <Consumer>
+                    <FoodsContainer />
+                </Consumer>
             </div>
         );
     }
